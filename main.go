@@ -124,13 +124,19 @@ func mode(numbers []float64) []float64 {
 		if freq[x] > maxFreq {
 			maxFreq = freq[x]
 		}
-		for key, value := range freq {
-			if maxFreq == value {
-				result = append(result, key)
-			}
-		}
-
 	}
+
+	for key, value := range freq {
+		if maxFreq == value {
+			result = append(result, key)
+		}
+	}
+
+	if maxFreq == 1 || len(result) == len(numbers) {
+		result = []float64{}
+	}
+
+	sort.Float64s(result)
 
 	return result
 }
