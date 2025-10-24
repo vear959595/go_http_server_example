@@ -27,6 +27,8 @@ type statistics struct {
 	numbers []float64
 	mean    float64
 	median  float64
+	mode    []float64
+	devi    float64
 }
 
 func main() {
