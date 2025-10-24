@@ -110,22 +110,26 @@ func median(numbers []float64) float64 {
 }
 
 func mode(numbers []float64) []float64 {
-	freq := make(map[float64]float64)
+	freq := make(map[float64]int, len(numbers))
 	var result []float64
+	/*
+		for _, num := range numbers {
+			freq[num]++
+		}*/
 
-	for _, num := range numbers {
-		freq[num]++
-	}
+	maxFreq := 0
 
-	maxFreq := 0.0
-
-	for key, value := range numbers {
-		if value > maxFreq {
-			maxFreq = value
-			result = []float64{float64(key)}
-		} else if value == maxFreq {
-			result = append(result, value)
+	for _, x := range numbers {
+		freq[x]++
+		if freq[x] > maxFreq {
+			maxFreq = freq[x]
 		}
+		for key, value := range freq {
+			if maxFreq == value {
+				result = append(result, key)
+			}
+		}
+
 	}
 
 	return result
