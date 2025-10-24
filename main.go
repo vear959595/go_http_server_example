@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 	"sort"
 	"strconv"
@@ -90,6 +91,7 @@ func getStats(numbers []float64) (stats statistics) {
 	stats.mean = sum(numbers) / float64(len(numbers))
 	stats.median = median(numbers)
 	stats.mode = mode(numbers)
+	stats.devi = devi(numbers, stats.mean)
 	return stats
 }
 
@@ -135,4 +137,13 @@ func mode(numbers []float64) []float64 {
 	sort.Float64s(result)
 
 	return result
+}
+
+func devi(numbers []float64, mean float64) float64 {
+	total := 0.0
+	for _, number := range numbers {
+		total += math.Pow(number-mean, 2)
+	}
+	variance := total / float64(len(numbers)-1)
+	return math.Sqrt(variance)
 }
