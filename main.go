@@ -89,6 +89,7 @@ func getStats(numbers []float64) (stats statistics) {
 	sort.Float64s(stats.numbers)
 	stats.mean = sum(numbers) / float64(len(numbers))
 	stats.median = median(numbers)
+	stats.mode = mode(numbers)
 	return stats
 }
 
@@ -105,5 +106,27 @@ func median(numbers []float64) float64 {
 	if len(numbers)%2 == 0 {
 		result = (result + numbers[middle-1]) / 2
 	}
+	return result
+}
+
+func mode(numbers []float64) []float64 {
+	freq := make(map[float64]float64)
+	var result []float64
+
+	for _, num := range numbers {
+		freq[num]++
+	}
+
+	maxFreq := 0.0
+
+	for key, value := range numbers {
+		if value > maxFreq {
+			maxFreq = value
+			result = []float64{float64(key)}
+		} else if value == maxFreq {
+			result = append(result, value)
+		}
+	}
+
 	return result
 }
